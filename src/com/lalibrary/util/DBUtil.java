@@ -11,7 +11,7 @@ public class DBUtil {
 	//DB연결
 	public static Connection getConnection() {
 		String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
-		String userid="hr", password="hr";
+		String userid="LALI", password="1234";
 		Connection conn = null;	//연결
 
 		try {
