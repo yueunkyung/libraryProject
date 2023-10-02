@@ -35,8 +35,4 @@ public class DBUtil {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args) {
-		Connection con = getConnection();
-		System.out.println("---"+ con);
-	}
 }
