@@ -17,13 +17,13 @@ public class LibraryService {
 	}
 	
 	//도서 주문
-	public int selectOrderBook(BookVO book) {		
-		return dao.selectOrderBook(book);
+	public int insertOrderBook(BookVO book) {		
+		return dao.insertOrderBook(book);
 	}
 	
 	//도서 대여
-	public int selectBorrowBook(BorrowBookVO borrowBook) {		
-		return dao.selectBorrowBook(borrowBook);
+	public int insertBorrowBook(BorrowBookVO borrowBook) {		
+		return dao.insertBorrowBook(borrowBook);
 	}
 	
 	//도서 전체 조회
@@ -52,8 +52,8 @@ public class LibraryService {
 	}
 	
 	//회원 가입
-	public int selectSignUp(UserVO memberInfo) {
-		return dao.selectSignUp(memberInfo);
+	public int insertSignUp(UserVO memberInfo) {
+		return dao.insertSignUp(memberInfo);
 	}
 
 	//분실물 보관센터
@@ -62,7 +62,12 @@ public class LibraryService {
 	}
 
 	//분실물 등록
-	public int selectRegLostItem(LostAndFoundVO itemInfo) {
-		return dao.selectRegLostItem(itemInfo);
+	public int insertLostItem(LostAndFoundVO itemInfo) {
+		return dao.insertLostItem(itemInfo);
+	}
+	
+	//분실물 수령
+	public int deleteLostItem(LostAndFoundVO itemId) {
+		return dao.deleteLostItem(itemId);
 	}
 }

@@ -11,7 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BorrowBookVO {
-	private String book_id;
-	private String user_id;
+	private String book_id;  //도서 아이디
+	private String user_id;  //사용자 아이디
 	
 }

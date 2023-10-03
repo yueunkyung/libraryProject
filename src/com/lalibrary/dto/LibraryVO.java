@@ -11,8 +11,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LibraryVO {
-	private String library_id;	//도서관 아이디
-	private String library_name;	//도서관 이름
-	private String loc;	//지역
-	private int member_count;	//회원수
+	private String library_id;  //도서관 아이디
+	private String library_name;  //도서관 이름
+	private String loc;  //지역
+	private int member_count;  //회원수
 }

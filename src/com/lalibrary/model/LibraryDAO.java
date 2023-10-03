@@ -20,7 +20,7 @@ public class LibraryDAO {
 	PreparedStatement pst;
 	ResultSet rs;
 
-	//통합도서검색-도서 이름으로 검색
+	//통합도서검색-도서 이름 검색
 	public List<BookVO> selectByBookTitle(String title){
 		List<BookVO> booklist = new ArrayList<>();
 		String sql = "SELECT * FROM BOOKS WHERE BOOK_NAME LIKE '%" + title + "%'";
@@ -41,7 +41,7 @@ public class LibraryDAO {
 	};
 
 	//도서 대여
-	public int selectBorrowBook(BorrowBookVO borrowInfo) {
+	public int insertBorrowBook(BorrowBookVO borrowInfo) {
 		//procedure - 도서 대여 목록 추가 처리 
 		//books 업데이트 TRIGGER 적용
 		int count = 0;
@@ -55,13 +55,6 @@ public class LibraryDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if(pst!=null)
-				try {
-					pst.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			DBUtil.dbDisConnection(conn, pst, rs);
 		}
 
@@ -69,7 +62,7 @@ public class LibraryDAO {
 	}
 	
 	//도서 주문
-	public int selectOrderBook(BookVO bookInfo) {
+	public int insertOrderBook(BookVO bookInfo) {
 		//procedure - 책(books) 추가 처리
 		int count = 0;
 		String sql = "{call add_new_book(?, ?, ?, ?)}";
@@ -84,14 +77,7 @@ public class LibraryDAO {
 			count = pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			if(pst!=null)
-				try {
-					pst.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		} finally {			
 			DBUtil.dbDisConnection(conn, pst, rs);
 		}
 				
@@ -231,7 +217,7 @@ public class LibraryDAO {
 	}
 
 	//회원 가입
-	public int selectSignUp(UserVO memberInfo) {
+	public int insertSignUp(UserVO memberInfo) {
 		int count = 0;
 		String sql = "{call add_new_user(?, ?, ?, ?)}";
 		conn = DBUtil.getConnection();
@@ -252,7 +238,7 @@ public class LibraryDAO {
 		return count;		
 	}
 
-	//분실물 보관센터
+	//분실물 보관센터-분실물 조회
 	public List<LostAndFoundVO> selectLostAndFound(String target, String sqlParam){
 		List<LostAndFoundVO> showlist = new ArrayList<>();
 		String sql = null;
@@ -284,7 +270,7 @@ public class LibraryDAO {
 	};
 
 	//분실물 등록
-	public int selectRegLostItem(LostAndFoundVO itemInfo) {
+	public int insertLostItem(LostAndFoundVO itemInfo) {
 		int count = 0;
 		String sql = "{call add_new_lost(?,?,?)}";
 		conn = DBUtil.getConnection();
@@ -303,7 +289,24 @@ public class LibraryDAO {
 				
 		return count;		
 	}
-
+	
+	//분실물 수령
+	public int deleteLostItem(LostAndFoundVO itemId) {
+		int count = 0;
+		String sql = "delete from lost_and_found where property_id = ?";
+		conn = DBUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);			
+			pst.setString(1, itemId.getProperty_id());
+			count = pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbDisConnection(conn, pst, rs);
+		}
+				
+		return count;		
+	}
 	
 	//도서-BookVO
 	private BookVO makeBookList(ResultSet rs) throws SQLException {

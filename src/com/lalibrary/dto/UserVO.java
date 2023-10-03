@@ -18,6 +18,7 @@ public class UserVO {
 	private String loc;		//지역
 	private String phone_no;	//연락처
 	
+	//회원 가입
 	public UserVO(String library_id, String user_name, String loc, String phone_no) {
 		super();
 		this.library_id = library_id;
